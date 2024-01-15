@@ -1,8 +1,8 @@
 // COnfigurar la aplicación
 const mensajeInicial = 'Empieza a adivinar...'
-let score = 21
-let highScore = 1
-const secretNumber = Math.trunc(Math.random() * 20 + 1)
+let score = 20
+let highScore = 0
+const secretNumber = Math.trunc(Math.random() * 20) + 1
 
 // Seleccionar elementos del DOM
 const messageField = document.querySelector('.message')
@@ -17,30 +17,40 @@ const guessNumberField = document.querySelector('.guess')
 messageField.textContent = mensajeInicial
 scoreField.textContent = score
 highScoreField.textContent = highScore
-secretNumberField.textContent = secretNumber
 
 // Funcionalidad de la aplicación
 // ddEventListener Es una función que recibe como argumento otra función.
 checkButton.addEventListener('click', () => {
-    // Obtener el valor del input
-    const guestNumber = Number(guessNumberField.value)
-    if (guestNumber > secretNumber) {
-        // Actualizar el mensaje
-        // Actualizar el score
-        score--
-        scoreField.textContent = score
-        messageField.textContent = 'Te has pasado'
-    } else if (guestNumber < secretNumber) {
-        // Actualizar el mensaje
-        // Actualizar el score
-        score--
-        scoreField.textContent = score
-        messageField.textContent = 'Te has quedado corto'
-    } else {
-        // Ha ganado...
-        // Cambiar fondo de pantalla
-        // Mostrar el número secreo
-        // Actualizar el highScore
+  // Obtener el valor del input
+  const guestNumber = Number(guessNumberField.value)
+  if (guestNumber > secretNumber) {
+    // Actualizar el mensaje
+    // Actualizar el score
+    score--
+    scoreField.textContent = score
+    messageField.textContent = 'Te has pasado'
+  } else if (guestNumber < secretNumber) {
+    // Actualizar el mensaje
+    // Actualizar el score
+    score--
+    scoreField.textContent = score
+    messageField.textContent = 'Te has quedado corto'
+  } else {
+    // Ha ganado...
+    // Cambiar fondo de pantalla
+    document.body.style.backgroundColor = '#60b347'
+    checkButton.disabled = true
+    // Mostrar el mensaje
+    messageField.textContent = 'Has acertado'
+    // Mostrar el número secreo
+    secretNumberField.textContent = secretNumber
+    document.number.style.backgroundColor = '#F00'
+
+    // Actualizar el highScore
+    if (score > highScore) {
+      highScore = score
+      highScoreField.textContent = highScore
     }
-    // Compararlo con el secretNumber
+  }
+  // Compararlo con el secretNumber
 })
