@@ -1,8 +1,11 @@
 // COnfigurar la aplicación
 const mensajeInicial = 'Empieza a adivinar...'
-let score = 20
+const SCORE = 20
+
+// Variables de la aplicación
+let score
 let highScore = 0
-const secretNumber = Math.trunc(Math.random() * 20) + 1
+let secretNumber
 
 // Seleccionar elementos del DOM
 const messageField = document.querySelector('.message')
@@ -14,9 +17,7 @@ const againButton = document.querySelector('.again')
 const guessNumberField = document.querySelector('.guess')
 
 // Inicializar la aplicación
-messageField.textContent = mensajeInicial
-scoreField.textContent = score
-highScoreField.textContent = highScore
+initApp()
 
 // Funcionalidad de la aplicación
 // ddEventListener Es una función que recibe como argumento otra función.
@@ -44,7 +45,8 @@ checkButton.addEventListener('click', () => {
     messageField.textContent = 'Has acertado'
     // Mostrar el número secreo
     secretNumberField.textContent = secretNumber
-    document.number.style.backgroundColor = '#F00'
+    secretNumberField.style.backgroundColor = 'yellow'
+    secretNumberField.style.width = '300px'
 
     // Actualizar el highScore
     if (score > highScore) {
@@ -54,3 +56,27 @@ checkButton.addEventListener('click', () => {
   }
   // Compararlo con el secretNumber
 })
+
+function initApp() {
+  // Inicializamos score
+  score = SCORE
+  scoreField.textContent = score
+  // TODO: Inicializamos highScore
+
+  // Inicializar el texto de inicio
+  messageField.textContent = mensajeInicial
+
+  // Inicializar el numero secreto y ocultarlo
+  secretNumber = Math.trunc(Math.random() * 20) + 1
+  secretNumberField.textContent = '?'
+
+  // Inicializar el fondo de patalla
+  document.body.style.backgroundColor = '#222'
+  secretNumberField.style.width = '150px'
+  secretNumberField.style.backgroundColor = '#fff'
+
+  // Inicializamos el checkButton
+  checkButton.disabled = false
+}
+
+againButton.addEventListener('click', initApp)
